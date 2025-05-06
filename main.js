@@ -23,7 +23,6 @@ function addTarget() {
         });
         gameArea.appendChild(target);
         moveTarget(target);
-        array.push(i);
     }
 }
 
@@ -38,9 +37,6 @@ function moveTarget(target) {
     target.style.left = `${randomX}px`;
     target.style.top = `${randomY}px`;
 }
-// Initial target position
-moveTarget();
-console.log(array);
 
 document.addEventListener("keydown", function(event) {
     if (event.ctrlKey && event.key === "s") {
