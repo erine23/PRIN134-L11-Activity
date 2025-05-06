@@ -1,18 +1,33 @@
 const gameArea = document.getElementById("gameArea");
-const target = document.getElementById("target");
 const scoreBoard = document.getElementById("scoreBoard");
 
 let score = 0;
+let array = []
 
-target.addEventListener("contextmenu", function(event) {
-    event.preventDefault();
-    score++;
-    scoreBoard.textContent = `Score: ${score}`;
-    moveTarget();
-    return false;
-});
+function addTarget() {
+    const number = document.getElementById("input");
+    const numValue = number.value;
+    gameArea.innerHTML = "";
 
-function moveTarget() {
+    for (let i = 0; i < numValue; i++) {
+        const target = document.createElement("div");
+        target.classList.add("target");
+        target.textContent = i;
+
+        target.addEventListener("contextmenu", function(event) {
+            event.preventDefault();
+            score++;
+            scoreBoard.textContent = `Score: ${score}`;
+            moveTarget(target);
+            return false;
+        });
+        gameArea.appendChild(target);
+        moveTarget(target);
+        array.push(i);
+    }
+}
+
+function moveTarget(target) {
     const gameAreaRect = gameArea.getBoundingClientRect();
     const maxX = gameAreaRect.width - target.offsetWidth;
     const maxY = gameAreaRect.height - target.offsetHeight;
@@ -25,6 +40,7 @@ function moveTarget() {
 }
 // Initial target position
 moveTarget();
+console.log(array);
 
 document.addEventListener("keydown", function(event) {
     if (event.ctrlKey && event.key === "s") {
