@@ -2,24 +2,41 @@ const gameArea = document.getElementById("gameArea");
 const scoreBoard = document.getElementById("scoreBoard");
 
 let score = 0;
-let array = []
+let currentTarget = 0;
+let totalTargets = 0;
+let round = 1;
 
 function addTarget() {
     const number = document.getElementById("input");
-    const numValue = number.value;
+    const numValue = parseInt(number.value);
+    if (isNaN(numValue) || numValue <= 0) return;
+
+    totalTargets = numValue;
+    currentTarget = 0;
     gameArea.innerHTML = "";
+    scoreBoard.textContent = `Score: ${score}`;
 
     for (let i = 0; i < numValue; i++) {
         const target = document.createElement("div");
         target.classList.add("target");
         target.textContent = i;
+        target.dataset.number = i;
 
-        target.addEventListener("contextmenu", function(event) {
+        target.addEventListener("contextmenu", function (event) {
             event.preventDefault();
-            score++;
-            scoreBoard.textContent = `Score: ${score}`;
-            moveTarget(target);
-            return false;
+            if (parseInt(this.dataset.number) === currentTarget) {
+                gameArea.removeChild(this);
+                currentTarget++;
+
+                if (currentTarget === totalTargets) {
+                    score++;
+                    scoreBoard.textContent = `Score: ${score}`;
+                    setTimeout(() => {
+                        round++;
+                        addTarget();
+                    });
+                }
+            }
         });
         gameArea.appendChild(target);
         moveTarget(target);

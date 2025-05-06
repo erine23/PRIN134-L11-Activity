@@ -23,6 +23,11 @@ body {
   background-color: red;
   border-radius: 50%;
   cursor: pointer;
+  color: white;
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #scoreBoard {
