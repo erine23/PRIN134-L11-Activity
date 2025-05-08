@@ -19,7 +19,7 @@ function addTarget() {
     for (let i = 0; i < numValue; i++) {
         const target = document.createElement("div");
         target.classList.add("target");
-        target.textContent = i;
+        target.textContent = i + 1;
         target.dataset.number = i;
 
         target.addEventListener("contextmenu", function (event) {
